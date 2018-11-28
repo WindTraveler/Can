@@ -1,0 +1,24 @@
+{
+  "name": "Can",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.2",
+    "style-loader": "^0.23.0",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7",
+    "webpack-merge": "^4.1.4"
+  },
+  "description": "A MVC framework of canvas",
+  "author": "maxy",
+  "dependencies": {
+    "underscore": "^1.9.1"
+  }
+}
