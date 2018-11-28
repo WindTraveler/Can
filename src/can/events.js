@@ -11,6 +11,9 @@
 //     object.on('expand', function(){ alert('expanded'); });
 //     object.trigger('expand');
 //
+
+const _ = require('underscore');
+
 var Events = {};
 
 // Regular expression used to split event strings.
