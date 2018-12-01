@@ -25,7 +25,7 @@ proto.paint = function () {
     this.clear();
 
     geometries.forEach(geom => {
-        geom.draw(ctx);
+        geom.paint(ctx);
     });
 };
 

@@ -76,13 +76,15 @@ _.extend(cproto, Events, {
     }
 });
 
+cproto.paint = function (ctx) {
+    this.preDraw(ctx);
+    this.draw(ctx);
+    this.postDraw(ctx);
+};
+
 // 圆形自己的绘制方法
 cproto.draw = function (ctx) {
-    this.preDraw(ctx);
-
     ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-
-    this.postDraw(ctx);
 };
 
 cproto.preDraw = function (ctx) {
