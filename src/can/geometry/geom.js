@@ -27,14 +27,21 @@ _.extend(proto, Events, {
         width: CONST_FOR_SIZE,
         height: CONST_FOR_SIZE,
         fs: 'transparent',
-        ss: 'black'
+        ss: 'black',
+        font: 'sans-serif',
+        fontSize: 15
     }
 });
 
 proto.paint = function (ctx) {
+    ctx.save();
+    // 设置样式
     this.preDraw(ctx);
+    // 开始新的路径
+    ctx.beginPath();
     this.draw(ctx);
     this.postDraw(ctx);
+    ctx.restore();
 };
 
 // 圆形自己的绘制方法
@@ -43,16 +50,16 @@ proto.draw = function (ctx) {
 };
 
 proto.preDraw = function (ctx) {
-    ctx.save();
+    // ctx.save();
     ctx.fillStyle = this.fs;
     ctx.strokeStyle = this.ss;
-    ctx.beginPath();
+    // ctx.beginPath();
 }
 
 proto.postDraw = function (ctx) {
     ctx.fill();
     ctx.stroke();
-    ctx.restore();
+    // ctx.restore();
 }
 
 module.exports = Gemo;

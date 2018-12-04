@@ -24,6 +24,12 @@ var p1 = myCanvas.add('poly', {
     sides: 3
 });
 
+var t1 = myCanvas.add('text', {
+    x: 100,
+    y: 100,
+    value: 'Love Jenny'
+});
+
 myCanvas.paint();
 
 
@@ -58,6 +64,6 @@ window.myCanvas = myCanvas;
 window.c = c1;
 window.r = r1;
 window.p = p1;
-
+window.t = t1;
 
 

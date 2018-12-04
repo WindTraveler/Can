@@ -9,13 +9,13 @@ const Gemo = require('./geom');
 const Utils = require('../utils/utils');
 
 /**
+ * 多边形的必填属性
  *
  * @param options
  * @param options.x
  * @param options.y
  * @param options.r 半径
  * @param options.sides 边数
-
  */
 function Poly(options) {
     Gemo.call(this, options);
