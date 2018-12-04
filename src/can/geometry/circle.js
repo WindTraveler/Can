@@ -1,3 +1,9 @@
+/**
+ * 图形库-圆形
+ *
+ * @author WindTraveler(13301156@bjtu.edu.cn)
+ */
+
 const _ = require('underscore');
 const Gemo = require('./geom');
 const Utils = require('../utils/utils');

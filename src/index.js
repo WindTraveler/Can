@@ -17,6 +17,13 @@ var r1 = myCanvas.add('rect', {
     y: 50
 });
 
+var p1 = myCanvas.add('poly', {
+    x: 100,
+    y: 100,
+    r: 30,
+    sides: 3
+});
+
 myCanvas.paint();
 
 
@@ -50,6 +57,7 @@ function moveBall(ball) {
 window.myCanvas = myCanvas;
 window.c = c1;
 window.r = r1;
+window.p = p1;
 
 
 

@@ -1,3 +1,8 @@
+/**
+ * 图形库-基类
+ *
+ * @author WindTraveler(13301156@bjtu.edu.cn)
+ */
 const _ = require('underscore');
 const Events = require('../events');
 const Utils = require('../utils/utils');

@@ -2,6 +2,7 @@ const _ = require('underscore');
 const Events = require('./events');
 const Circle = require('./geometry/circle');
 const Rect = require('./geometry/rect');
+const Poly = require('./geometry/poly');
 
 // 命名空间
 function Can(context) {
@@ -53,6 +54,9 @@ proto.add = function (type, opts) {
             break;
         case 'rect':
             Factory = Rect;
+            break;
+        case 'poly':
+            Factory = Poly;
             break;
         default:
             throw new TypeError('目前并没有该绘制种类：' + type);
