@@ -30,6 +30,14 @@ var t1 = myCanvas.add('text', {
     value: 'Love Jenny'
 });
 
+var img1 = myCanvas.add('image', {
+    src: 'luffy.jpg',
+    x: 100,
+    y: 100,
+    width: 100,
+    height: 100
+});
+
 myCanvas.paint();
 
 
@@ -65,5 +73,6 @@ window.c = c1;
 window.r = r1;
 window.p = p1;
 window.t = t1;
+window.img = img1;
 
 
