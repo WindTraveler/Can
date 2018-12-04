@@ -1,6 +1,7 @@
 const _ = require('underscore');
 const Events = require('./events');
 const Circle = require('./geometry/circle');
+const Rect = require('./geometry/rect');
 
 // 命名空间
 function Can(context) {
@@ -44,8 +45,20 @@ proto.clear = function () {
  */
 proto.add = function (type, opts) {
     // todo 先添加圆形
-    // var {x, y, r} = opts;
-    const geom = new Circle(opts);
+    var Factory = null;
+
+    switch (type) {
+        case 'circle':
+            Factory = Circle;
+            break;
+        case 'rect':
+            Factory = Rect;
+            break;
+        default:
+            throw new TypeError('目前并没有该绘制种类：' + type);
+    }
+
+    const geom = new Factory(opts);
     this.geometries.push(geom);
 
     // 监听

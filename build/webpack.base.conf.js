@@ -9,6 +9,7 @@ let devMode = utils.isDev();
 
 module.exports = {
     mode: devMode ? 'development' : 'production',
+    devtool: 'eval-source-map',
     entry: {
         index: './src/index.js'
     },
