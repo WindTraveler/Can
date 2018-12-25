@@ -29,8 +29,15 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|gif)(\?.*)?$/,
                 loader: 'url-loader'
+            },
+            {
+                test: /\.can$/,
+                loader: 'can-loader'
             }
         ]
+    },
+    resolveLoader: {
+        modules: ['node_modules', 'src']
     },
     plugins: [
         new HtmlWebpackPlugin({

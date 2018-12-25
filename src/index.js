@@ -1,8 +1,11 @@
 import './index.css';
 import Can from './can';
+import today from './App.can';
 
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
+
+console.log(today);
 
 // 声明一个Can的实例
 var myCanvas = new Can(context);
