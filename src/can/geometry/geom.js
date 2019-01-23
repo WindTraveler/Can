@@ -6,17 +6,59 @@
 const _ = require('underscore');
 const Events = require('../events');
 const Utils = require('../utils/utils');
+import { observe } from '../observer/index'
 
-function Gemo(options) {
-    var options = _.defaults(options, this.defaults);
+// function Gemo(options) {
+//     var options = _.defaults(options, this.defaults);
+//
+//     this.id = _.uniqueId('geom_');
+//
+//     // 定义属性
+//     Utils.assignPropsAndMethods(this, options);
+// }
 
-    this.id = _.uniqueId('geom_');
+class Geometry {
+    constructor(options) {
+        this.$options = options;
+        this.$data = _.defaults((options.data || {}), this.defaults);
 
-    // 定义属性
-    Utils.assignPropsAndMethods(this, options);
+        this.id = _.uniqueId('geom_');
+
+        // 设置响应式属性
+        observe(this.$data);
+
+        // 代理
+        _proxy.call(this, options.data);
+    }
 }
 
-const proto = Gemo.prototype;
+/**
+ * 代理
+ *
+ * @param val
+ * @private
+ */
+function _proxy(data) {
+    var that = this;
+
+    Object.keys(data).forEach(key => {
+        Object.defineProperty(that, key, {
+            enumerable: true,
+            configurable: true,
+            get() {
+                return that.$data[key];
+            },
+            set(newVal) {
+                that.$data[key] = newVal;
+
+                // fixme 暂时在这里触发重绘
+                that.trigger('repaint');
+            }
+        })
+    })
+}
+
+const proto = Geometry.prototype;
 const CONST_FOR_SIZE = 20;
 
 _.extend(proto, Events, {
@@ -62,4 +104,4 @@ proto.postDraw = function (ctx) {
     // ctx.restore();
 }
 
-module.exports = Gemo;
+export default Geometry;

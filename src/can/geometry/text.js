@@ -1,3 +1,5 @@
+import Rect from "./rect";
+
 /**
  * 图形库-文字
  *
@@ -5,7 +7,7 @@
  */
 
 const _ = require('underscore');
-const Gemo = require('./geom');
+import Geometry from './geom';
 const Utils = require('../utils/utils');
 
 /**
@@ -16,13 +18,18 @@ const Utils = require('../utils/utils');
  * @param options.y
  * @param options.value 文字内容
  */
-function Text(options) {
-    Gemo.call(this, options);
+// function Text(options) {
+//     // Gemo.call(this, options);
+// }
+class Text extends Geometry{
+    constructor(options) {
+        super(options);
+    }
 }
 
 // 继承原型链
-var proto = Text.prototype = Object.create(Gemo.prototype);
-proto.constructor = Text;
+var proto = Text.prototype;
+// proto.constructor = Text;
 
 // 实现圆形自己的draw接口
 proto.draw = function (ctx) {
@@ -40,4 +47,4 @@ proto.postDraw = function (ctx) {
     return ;
 };
 
-module.exports = Text;
+export default Text;

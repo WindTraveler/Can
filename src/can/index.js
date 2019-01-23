@@ -1,10 +1,6 @@
 const _ = require('underscore');
 const Events = require('./events');
-const Circle = require('./geometry/circle');
-const Rect = require('./geometry/rect');
-const Poly = require('./geometry/poly');
-const Text = require('./geometry/text');
-const Img = require('./geometry/img');
+import { Circle, Rect, Img, Text, Poly} from './geometry/index';
 
 // 命名空间
 function Can(context) {
@@ -25,7 +21,7 @@ _.extend(proto, Events);
 proto.paint = function () {
     const ctx = this.context;
     const geometries = this.geometries;
-    
+
     this.clear();
 
     geometries.forEach(geom => {
@@ -88,7 +84,7 @@ proto.remove = function (geometry) {
     var index = this.geometries.findIndex(gemo => {
         return gemo.id === geometry.id;
     });
-    
+
     if (index > -1) {
         this.geometries.splice(index, 1);
     }

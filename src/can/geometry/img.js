@@ -1,3 +1,5 @@
+import Rect from "./rect";
+
 /**
  * 图形库-模板
  *
@@ -5,16 +7,23 @@
  */
 
 const _ = require('underscore');
-const Gemo = require('./geom');
+import Geometry from './geom';
 const Utils = require('../utils/utils');
 
-function Img(options) {
-    Gemo.call(this, options);
+// function Img(options) {
+//     // Gemo.call(this, options);
+// }
+
+class Img extends Geometry{
+    constructor(options) {
+        super(options);
+    }
 }
 
 // 继承原型链
-var proto = Img.prototype = Object.create(Gemo.prototype);
-proto.constructor = Img;
+var proto = Img.prototype;
+// var proto = Img.prototype = Object.create(Geometry.prototype);
+// proto.constructor = Img;
 
 // 实现圆形自己的draw接口
 proto.draw = function (ctx) {
@@ -28,4 +37,4 @@ proto.draw = function (ctx) {
     });
 };
 
-module.exports = Img;
+export default Img;

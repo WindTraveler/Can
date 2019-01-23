@@ -5,20 +5,30 @@
  */
 
 const _ = require('underscore');
-const Gemo = require('./geom');
+
 const Utils = require('../utils/utils');
 
-function Circle(options) {
-    Gemo.call(this, options);
+import Geometry from './geom';
+
+// function Circle(options) {
+//     Gemo.call(this, options);
+// }
+
+class Circle extends Geometry{
+    constructor(options) {
+        super(options);
+    }
 }
 
 // 继承原型链
-var proto = Circle.prototype = Object.create(Gemo.prototype);
-proto.constructor = Circle;
+var proto = Circle.prototype;
+// var proto = Circle.prototype = Object.create(Gemo.prototype);
+// proto.constructor = Circle;
 
 // 实现圆形自己的draw接口
 proto.draw = function (ctx) {
     ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
 };
 
-module.exports = Circle;
+// module.exports = Circle;
+export default Circle;

@@ -1,3 +1,5 @@
+import Rect from "./rect";
+
 /**
  * 图形库-正多边形
  *
@@ -5,7 +7,7 @@
  */
 
 const _ = require('underscore');
-const Gemo = require('./geom');
+import Geometry from './geom';
 const Utils = require('../utils/utils');
 
 /**
@@ -17,13 +19,18 @@ const Utils = require('../utils/utils');
  * @param options.r 半径
  * @param options.sides 边数
  */
-function Poly(options) {
-    Gemo.call(this, options);
+// function Poly(options) {
+//     // Gemo.call(this, options);
+// }
+class Poly extends Geometry{
+    constructor(options) {
+        super(options);
+    }
 }
 
 // 继承原型链
-var proto = Poly.prototype = Object.create(Gemo.prototype);
-proto.constructor = Poly;
+var proto = Poly.prototype;
+// proto.constructor = Poly;
 
 // 定义一个Point类
 var Point = function (x, y) {
@@ -56,4 +63,4 @@ proto.draw = function (ctx) {
     ctx.closePath();
 };
 
-module.exports = Poly;
+export default Poly;
