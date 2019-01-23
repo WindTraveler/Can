@@ -24,32 +24,32 @@ var r1 = myCanvas.add('rect', {
     }
 });
 
-var p1 = myCanvas.add('poly', {
-    data: {
-        x: 100,
-        y: 100,
-        r: 30,
-        sides: 3
-    }
-});
-
-var t1 = myCanvas.add('text', {
-    data: {
-        x: 100,
-        y: 100,
-        value: 'Love Jenny'
-    }
-});
-
-var img1 = myCanvas.add('image', {
-    data: {
-        src: 'luffy.jpg',
-        x: 100,
-        y: 100,
-        width: 100,
-        height: 100
-    }
-});
+// var p1 = myCanvas.add('poly', {
+//     data: {
+//         x: 100,
+//         y: 100,
+//         r: 30,
+//         sides: 3
+//     }
+// });
+//
+// var t1 = myCanvas.add('text', {
+//     data: {
+//         x: 100,
+//         y: 100,
+//         value: 'Love Jenny'
+//     }
+// });
+//
+// var img1 = myCanvas.add('image', {
+//     data: {
+//         src: 'luffy.jpg',
+//         x: 100,
+//         y: 100,
+//         width: 100,
+//         height: 100
+//     }
+// });
 
 myCanvas.paint();
 
@@ -84,8 +84,8 @@ function moveBall(ball) {
 // window.myCanvas = myCanvas;
 window.c = c1;
 window.r = r1;
-window.p = p1;
-window.t = t1;
-window.img = img1;
+// window.p = p1;
+// window.t = t1;
+// window.img = img1;
 
 
