@@ -51,7 +51,7 @@ var r1 = myCanvas.add('rect', {
 //     }
 // });
 
-myCanvas.paint();
+// myCanvas.paint();
 
 
 // 运动动画测试
@@ -81,7 +81,7 @@ function moveBall(ball) {
 // requestAnimationFrame(drawBalls);
 
 // 方便调试
-// window.myCanvas = myCanvas;
+window.myCanvas = myCanvas;
 window.c = c1;
 window.r = r1;
 // window.p = p1;

@@ -1,6 +1,7 @@
 const _ = require('underscore');
 const Events = require('./events');
 import { Circle, Rect, Img, Text, Poly} from './geometry/index';
+import Group from './geometry/group';
 
 // 命名空间
 function Can(context) {
@@ -8,7 +9,11 @@ function Can(context) {
 
     this.canvas = context.canvas;
     this.context = context;
+
     this.geometries = [];
+
+    // 根节点
+    this.root = new Group(context);
 };
 
 const proto = Can.prototype;
@@ -19,77 +24,28 @@ _.extend(proto, Events);
  * 将队列中的图形全部绘制
  */
 proto.paint = function () {
-    const ctx = this.context;
-    const geometries = this.geometries;
-
-    this.clear();
-
-    geometries.forEach(geom => {
-        geom.paint(ctx);
-    });
+    this.root.paint();
 };
 
 /**
  * 清除画布
  */
 proto.clear = function () {
-    const {width: w, height: h} = this.canvas;
-    const ctx = this.context;
-
-    ctx.clearRect(0, 0, w, h);
+    this.root.clear();
 }
 
 /**
  * 添加一个图形
  */
 proto.add = function (type, opts) {
-    // todo 先添加圆形
-    var Factory = null;
-
-    switch (type) {
-        case 'circle':
-            Factory = Circle;
-            break;
-        case 'rect':
-            Factory = Rect;
-            break;
-        case 'poly':
-            Factory = Poly;
-            break;
-        case 'text':
-            Factory = Text;
-            break;
-        case 'image':
-            Factory = Img;
-            break;
-        default:
-            throw new TypeError('目前并没有该绘制种类：' + type);
-    }
-
-    const geom = new Factory(opts);
-    this.geometries.push(geom);
-
-    // 监听
-    this.listenTo(geom, 'repaint', this.paint);
-
-    return geom;
+    return this.root.add(type, opts);
 };
 
 /**
  *  删除一个图形
  */
 proto.remove = function (geometry) {
-    if (!geometry) return;
-
-    var index = this.geometries.findIndex(gemo => {
-        return gemo.id === geometry.id;
-    });
-
-    if (index > -1) {
-        this.geometries.splice(index, 1);
-    }
-
-    return geometry;
+    return this.root.remove(geometry);
 }
 
 export default Can;

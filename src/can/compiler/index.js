@@ -10,5 +10,4 @@ var template = `
 // 抽象语法树
 var ast = parseHTML(template);
 
-
 console.log(ast);
