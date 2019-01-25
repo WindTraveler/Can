@@ -1,6 +1,7 @@
 import './index.css';
 import Can from './can';
 import today from './App.can';
+import {Circle} from "./can/geometry";
 
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
@@ -10,19 +11,20 @@ console.log(today);
 // 声明一个Can的实例
 var myCanvas = new Can(context);
 
-var c1 = myCanvas.add('circle', {
-    data: {
-        x: 20,
-        y: 20
-    }
-});
-
-var r1 = myCanvas.add('rect', {
-    data: {
-        x: 50,
-        y: 50
-    }
-});
+// var c1 = myCanvas.add('circle', {
+//     data: {
+//         x: 20,
+//         y: 20
+//     }
+// });
+//
+// var data = window.data = {
+//     x: 20,
+//     y: 50,
+// };
+// var r1 = window.r1 =myCanvas.add('rect', {
+//     data
+// });
 
 // var p1 = myCanvas.add('poly', {
 //     data: {
@@ -53,10 +55,49 @@ var r1 = myCanvas.add('rect', {
 
 // myCanvas.paint();
 
+// 组件demo
+
+var Maxy = Can.define('maxy', {
+    template: `
+        <group c-if="isShow">
+            <circle x="60" y="60" r="40" c-for="item in list"/>
+            <rect x="80" y="80" width="30" height="40"/>
+        </group>
+    `,
+    // todo
+    // data() {
+    //     return {
+    //         isShow: true,
+    //         list: [1, 2, 3]
+    //     };
+    // }
+});
+
+var m = window.m = myCanvas.add('maxy', {
+    data: {
+        isShow: true,
+        list: [1, 2, 3]
+    }
+});
+
+// var m = new Maxy({
+//     data() {
+//         return {
+//             isShow: true,
+//             list: [1, 2, 3]
+//         };
+//     }
+// });
+// m.paint(context);
+
+window.m = m;
+
+// myCanvas.add('maxy', {});
+
 
 // 运动动画测试
-c1.velocityX = 5;
-c1.velocityY = 5;
+// c1.velocityX = 5;
+// c1.velocityY = 5;
 
 function drawBalls() {
     moveBall(c1);
@@ -82,8 +123,8 @@ function moveBall(ball) {
 
 // 方便调试
 window.myCanvas = myCanvas;
-window.c = c1;
-window.r = r1;
+// window.c = c1;
+// window.r = r1;
 // window.p = p1;
 // window.t = t1;
 // window.img = img1;

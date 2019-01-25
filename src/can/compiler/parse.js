@@ -177,13 +177,17 @@ function parseHTML(html, options) {
     function getAndRemoveAttr (el, name) {
         let val;
         if ((val = el.attrsMap[name]) != null) {
-            const list = el.attrsList
+            const list = el.attrsList;
+            const map = el.attrsMap;
+
             for (let i = 0, l = list.length; i < l; i++) {
                 if (list[i].name === name) {
                     list.splice(i, 1)
                     break
                 }
             }
+
+            delete map[name];
         }
         return val;
     }

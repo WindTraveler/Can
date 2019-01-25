@@ -19,8 +19,11 @@ import { observe } from '../observer/index'
 
 class Geometry {
     constructor(options) {
+        var options = options || {};
+        var data = typeof options.data === 'function' ? options.data() : options.data;
+
         this.$options = options;
-        this.$data = _.defaults((options.data || {}), this.defaults);
+        this.$data = _.defaults((data || {}), this.defaults);
 
         this.id = _.uniqueId('geom_');
 
@@ -28,7 +31,7 @@ class Geometry {
         observe(this.$data);
 
         // 代理
-        _proxy.call(this, options.data);
+        _proxy.call(this, this.$data);
     }
 }
 

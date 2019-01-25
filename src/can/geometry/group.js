@@ -46,25 +46,32 @@ proto.add = function (type, opts) {
     // todo 先添加圆形
     var Factory = null;
 
-    switch (type) {
-        case 'circle':
-            Factory = Circle;
-            break;
-        case 'rect':
-            Factory = Rect;
-            break;
-        case 'poly':
-            Factory = Poly;
-            break;
-        case 'text':
-            Factory = Text;
-            break;
-        case 'image':
-            Factory = Img;
-            break;
-        default:
-            throw new TypeError('目前并没有该绘制种类：' + type);
+    if (GEOM_MAP.has(type)) {
+        Factory = GEOM_MAP.get(type);
     }
+    else {
+        throw new TypeError('目前并没有该绘制种类：' + type);
+    }
+
+    // switch (type) {
+    //     case 'circle':
+    //         Factory = Circle;
+    //         break;
+    //     case 'rect':
+    //         Factory = Rect;
+    //         break;
+    //     case 'poly':
+    //         Factory = Poly;
+    //         break;
+    //     case 'text':
+    //         Factory = Text;
+    //         break;
+    //     case 'image':
+    //         Factory = Img;
+    //         break;
+    //     default:
+    //         throw new TypeError('目前并没有该绘制种类：' + type);
+    // }
 
     const geom = new Factory(opts);
     this.geometries.push(geom);

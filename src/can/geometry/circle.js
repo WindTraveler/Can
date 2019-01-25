@@ -27,7 +27,7 @@ var proto = Circle.prototype;
 
 // 实现圆形自己的draw接口
 proto.draw = function (ctx) {
-    ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+    ctx.arc(+this.x, +this.y, +this.r, 0, 2 * Math.PI);
 };
 
 // module.exports = Circle;

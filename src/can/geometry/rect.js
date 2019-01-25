@@ -23,7 +23,7 @@ var proto = Rect.prototype;
 
 // 矩形自己的绘制方法
 proto.draw = function (ctx) {
-    ctx.rect(this.x, this.y, this.width, this.height);
+    ctx.rect(+this.x, +this.y, +this.width, +this.height);
 };
 
 export default Rect;

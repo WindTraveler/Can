@@ -1,7 +1,8 @@
 const _ = require('underscore');
 const Events = require('./events');
-import { Circle, Rect, Img, Text, Poly} from './geometry/index';
+import {Circle, Geometry} from './geometry/index';
 import Group from './geometry/group';
+import { parseHTML, generate } from "./compiler";
 
 // 命名空间
 function Can(context) {
@@ -10,7 +11,7 @@ function Can(context) {
     this.canvas = context.canvas;
     this.context = context;
 
-    this.geometries = [];
+    // this.geometries = [];
 
     // 根节点
     this.root = new Group(context);
@@ -24,6 +25,8 @@ _.extend(proto, Events);
  * 将队列中的图形全部绘制
  */
 proto.paint = function () {
+    this.clear();
+
     this.root.paint();
 };
 
@@ -31,21 +34,69 @@ proto.paint = function () {
  * 清除画布
  */
 proto.clear = function () {
-    this.root.clear();
-}
+    const {width: w, height: h} = this.canvas;
+    const ctx = this.context;
+
+    ctx.clearRect(0, 0, w, h);
+};
 
 /**
- * 添加一个图形
+ * 向根节点添加一个图形
  */
 proto.add = function (type, opts) {
     return this.root.add(type, opts);
 };
 
 /**
- *  删除一个图形
+ *  从根节点删除一个图形
  */
 proto.remove = function (geometry) {
     return this.root.remove(geometry);
-}
+};
+
+/**
+ * 拓展一个图形类
+ *
+ * @param options
+ */
+Can.extend = function (options) {
+    var opt = options || {};
+
+    // 定义一个类
+    var Sub = class extends Geometry{
+        constructor(options) {
+            // todo 修复
+            super(_.defaults(options, opt));
+        }
+    }
+
+    var proto = Sub.prototype;
+
+    var tempalte = opt.template;
+    if(!tempalte) {
+        throw new Error('无效的template，无法创建自定义组件');
+    }
+    var ast = parseHTML(tempalte);
+    var render = generate(ast);
+
+    // todo 重写Sub的draw方法
+    proto.draw = new Function('ctx', render);
+
+    return Sub;
+};
+
+/**
+ * 定义一个组件
+ *
+ */
+Can.define = function (name, options) {
+      var Sub = this.extend(options);
+
+      GEOM_MAP.set(name, Sub);
+
+      return Sub;
+};
+
+// Can.components = new Map();
 
 export default Can;
