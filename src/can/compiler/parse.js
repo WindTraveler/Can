@@ -33,6 +33,16 @@ function parseHTML(html, options) {
         let textEnd = html.indexOf('<');
         if (textEnd === 0) {
 
+            // 处理注释
+            if (comment.test(html)) {
+                var commentEnd = html.indexOf('-->');
+
+                if (commentEnd >= 0) {
+                    advance(commentEnd + 3);
+                    continue;
+                }
+            }
+
             const endTagMatch = html.match(endTag)
             if (endTagMatch) {
                 advance(endTagMatch[0].length);
