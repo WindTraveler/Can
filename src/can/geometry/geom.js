@@ -23,6 +23,7 @@ class Geometry {
         var data = typeof options.data === 'function' ? options.data() : options.data;
 
         this.$options = options;
+        // defaults是所有canvas绘画时，可能会涉及到的属性
         this.$data = _.defaults((data || {}), this.defaults);
 
         this.id = _.uniqueId('geom_');

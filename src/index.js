@@ -56,27 +56,32 @@ var myCanvas = new Can(context);
 // myCanvas.paint();
 
 // 组件demo
+// <group c-if="isShow">
+//     <circle :x="item.x" :y="item.y" :r="item.r" c-for="item in list"/>
+//     <rect x="80" y="80" width="30" height="40"/>
+// </group>
 
 var Maxy = Can.define('maxy', {
     template: `
-        <group c-if="isShow">
-            <circle x="60" y="60" r="40" c-for="item in list"/>
+        <group c-if="isShow"">
+            <circle x="40" y="40" r="20"/>
             <rect x="80" y="80" width="30" height="40"/>
         </group>
     `,
-    // todo
-    // data() {
-    //     return {
-    //         isShow: true,
-    //         list: [1, 2, 3]
-    //     };
-    // }
+    data() {
+        return {
+            fs: 'red',
+            isShow: true,
+        };
+    }
 });
 
 var m = window.m = myCanvas.add('maxy', {
-    data: {
-        isShow: true,
-        list: [1, 2, 3]
+    data() {
+        return {
+            fs: 'red',
+            list: [{x: 40, y: 40, r: 20}, {x: 20, y: 20, r: 40}]
+        };
     }
 });
 

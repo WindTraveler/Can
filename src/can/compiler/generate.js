@@ -45,11 +45,43 @@ function genChildren(el) {
 
 function genGeometry(el) {
     if (el) {
-        return `;new ${genConstructor(el)}({data:${JSON.stringify(el.attrsMap)}}).paint(ctx)`;
+        return `new ${genConstructor(el)}({data:${genData(el)}}).paint(ctx)`;
     }
     return '';
 }
 
+/**
+ * 生成data属性的字符串
+ *
+ * @param el
+ */
+function genData(el) {
+    var m = el.attrsMap;
+
+    if (m) {
+        var content = Object.keys(m)
+                        .map(key => {
+                            var begin = key[0];
+
+                            switch (begin) {
+                                case ':':
+                                    return `"${key.substring(1)}": ${m[key]} `;
+                                default:
+                                    return `"${key}": "${m[key]}"`;
+                            };
+                        })
+                        .join(',');
+
+        return `{${content}}`;
+    }
+    return '{}';
+}
+
+/**
+ * 生成构造函数字符串
+ *
+ * @param el
+ */
 function genConstructor(el) {
     if (GEOM_MAP.has(el.tag)) {
         return `(GEOM_MAP.get('${el.tag}'))`;
@@ -74,8 +106,6 @@ function genElement(el) {
             // 处理几何节点
             return genGeometry(el);
         }
-
-        return 'nihao';
     }
 }
 

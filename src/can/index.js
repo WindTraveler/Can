@@ -60,26 +60,34 @@ proto.remove = function (geometry) {
  * @param options
  */
 Can.extend = function (options) {
-    var opt = options || {};
+    var baseOpt = options || {};
 
     // 定义一个类
     var Sub = class extends Geometry{
         constructor(options) {
-            // todo 修复
-            super(_.defaults(options, opt));
+
+            var baseData = typeof baseOpt.data === 'function' ? baseOpt.data() : {};
+            var data = typeof options.data === 'function' ? options.data() : {};
+
+            options.data = _.defaults(data, baseData);
+
+            super(options);
         }
     }
 
     var proto = Sub.prototype;
 
-    var tempalte = opt.template;
+    var tempalte = baseOpt.template;
     if(!tempalte) {
         throw new Error('无效的template，无法创建自定义组件');
     }
     var ast = parseHTML(tempalte);
     var render = generate(ast);
+    
+    console.dir(ast);
+    console.log(render);
 
-    // todo 重写Sub的draw方法
+    // 重写Sub的draw方法
     proto.draw = new Function('ctx', render);
 
     return Sub;
