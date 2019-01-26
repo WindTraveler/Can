@@ -45,7 +45,7 @@ function genChildren(el) {
 
 function genGeometry(el) {
     if (el) {
-        return `new ${genConstructor(el)}({data:${genData(el)}}).paint(ctx)`;
+        return `new ${genConstructor(el)}({data:${genData(el)}}, this).paint(ctx)`;
     }
     return '';
 }
@@ -64,8 +64,10 @@ function genData(el) {
                             var begin = key[0];
 
                             switch (begin) {
+                                // 绑定变量
                                 case ':':
                                     return `"${key.substring(1)}": ${m[key]} `;
+                                // 常量
                                 default:
                                     return `"${key}": "${m[key]}"`;
                             };

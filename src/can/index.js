@@ -87,8 +87,8 @@ Can.extend = function (options) {
     console.dir(ast);
     console.log(render);
 
-    // 重写Sub的draw方法
-    proto.draw = new Function('ctx', render);
+    // 重写Sub的paint方法
+    proto.paint = new Function('ctx', render);
 
     return Component;
 };

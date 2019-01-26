@@ -15,8 +15,8 @@ import Geometry from './geom';
 // }
 
 class Circle extends Geometry{
-    constructor(options) {
-        super(options);
+    constructor(options, parent) {
+        super(options, parent);
     }
 }
 

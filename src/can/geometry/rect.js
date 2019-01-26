@@ -12,8 +12,8 @@ const Events = require('../events');
 //     // Gemo.call(this, options);
 // }
 class Rect extends Geometry{
-    constructor(options) {
-        super(options);
+    constructor(options, parent) {
+        super(options, parent);
     }
 }
 

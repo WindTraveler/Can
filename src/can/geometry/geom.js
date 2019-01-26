@@ -17,14 +17,33 @@ import { observe } from '../observer/index'
 //     Utils.assignPropsAndMethods(this, options);
 // }
 
+/**
+ * 获取data对象
+ *
+ * @param obj
+ */
+function retrieveData(obj) {
+    if (obj) {
+        var data = typeof obj === 'function' ? obj() : obj || {};
+        return data;
+    }
+    return {};
+}
+
 class Geometry {
-    constructor(options) {
+    constructor(options, parent) {
         var options = options || {};
-        var data = typeof options.data === 'function' ? options.data() : options.data;
+        var data = retrieveData(options.data);
+        var parentData = {};
+
+        // 如果是组件内子图型
+        if (parent) {
+            parentData = retrieveData(parent.$data);
+        }
 
         this.$options = options;
         // defaults是所有canvas绘画时，可能会涉及到的属性
-        this.$data = _.defaults((data || {}), this.defaults);
+        this.$data = _.defaults(data, parentData, this.defaults);
 
         this.id = _.uniqueId('geom_');
 
@@ -87,6 +106,9 @@ proto.paint = function (ctx) {
     ctx.beginPath();
     this.draw(ctx);
     this.postDraw(ctx);
+
+    // 子元素f、s之后，清空path，避免父组件的postDraw影响颜色
+    ctx.beginPath();
     ctx.restore();
 };
 
@@ -99,6 +121,8 @@ proto.preDraw = function (ctx) {
     // ctx.save();
     ctx.fillStyle = this.fs;
     ctx.strokeStyle = this.ss;
+
+    console.log(this, this.ss);
     // ctx.beginPath();
 }
 

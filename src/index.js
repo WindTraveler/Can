@@ -64,13 +64,13 @@ var myCanvas = new Can(context);
 var Maxy = Can.define('maxy', {
     template: `
         <group c-if="isShow"">
-            <circle x="40" y="40" r="20"/>
+            <circle x="40" y="40" r="20" :fs="cfs"/>
             <rect x="80" y="80" width="30" height="40"/>
         </group>
     `,
     data() {
         return {
-            fs: 'red',
+            // fs: 'red',
             isShow: true,
         };
     }
@@ -79,7 +79,8 @@ var Maxy = Can.define('maxy', {
 var m = window.m = myCanvas.add('maxy', {
     data() {
         return {
-            fs: 'red',
+            cfs: 'red',
+            fs: 'yellow',
             list: [{x: 40, y: 40, r: 20}, {x: 20, y: 20, r: 40}]
         };
     }

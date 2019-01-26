@@ -23,8 +23,8 @@ const Utils = require('../utils/utils');
 //     // Gemo.call(this, options);
 // }
 class Poly extends Geometry{
-    constructor(options) {
-        super(options);
+    constructor(options, parent) {
+        super(options, parent);
     }
 }
 

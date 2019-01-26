@@ -15,8 +15,8 @@ const Utils = require('../utils/utils');
 // }
 
 class Img extends Geometry{
-    constructor(options) {
-        super(options);
+    constructor(options, parent) {
+        super(options, parent);
     }
 }
 
