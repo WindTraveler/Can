@@ -63,7 +63,7 @@ Can.extend = function (options) {
     var baseOpt = options || {};
 
     // 定义一个类
-    var Sub = class extends Geometry{
+    var Component = class extends Geometry{
         constructor(options) {
 
             var baseData = typeof baseOpt.data === 'function' ? baseOpt.data() : {};
@@ -75,7 +75,7 @@ Can.extend = function (options) {
         }
     }
 
-    var proto = Sub.prototype;
+    var proto = Component.prototype;
 
     var tempalte = baseOpt.template;
     if(!tempalte) {
@@ -83,14 +83,14 @@ Can.extend = function (options) {
     }
     var ast = parseHTML(tempalte);
     var render = generate(ast);
-    
+
     console.dir(ast);
     console.log(render);
 
     // 重写Sub的draw方法
     proto.draw = new Function('ctx', render);
 
-    return Sub;
+    return Component;
 };
 
 /**
