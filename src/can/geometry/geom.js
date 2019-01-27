@@ -48,7 +48,10 @@ class Geometry {
         this.id = _.uniqueId('geom_');
 
         // 设置响应式属性
-        observe(this.$data);
+        // fixme 取消子元素的响应式属性真的好嘛？
+        if (!parent) {
+            observe(this.$data, this.fireRepaint.bind(this));
+        }
 
         // 代理
         _proxy.call(this, this.$data);
@@ -75,7 +78,7 @@ function _proxy(data) {
                 that.$data[key] = newVal;
 
                 // fixme 暂时在这里触发重绘
-                that.trigger('repaint');
+                // that.trigger('repaint');
             }
         })
     })
@@ -130,6 +133,13 @@ proto.postDraw = function (ctx) {
     ctx.fill();
     ctx.stroke();
     // ctx.restore();
+}
+
+/**
+ * 触发重绘事件
+ */
+proto.fireRepaint = function () {
+    this.trigger('repaint');
 }
 
 export default Geometry;

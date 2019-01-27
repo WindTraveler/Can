@@ -3,8 +3,9 @@
 /**
  * 给对象的一个属性定义响应式属性
  */
-function defineReactive(obj, key, val) {
+function defineReactive(obj, key, val, cb) {
     // let dep = new Dep();
+    observe(obj[key], cb);
 
     Object.defineProperty(obj, key, {
         enumerable: true,
@@ -20,14 +21,17 @@ function defineReactive(obj, key, val) {
                 return ;
             }
             val = newVal;
+            cb();
         }
     })
 }
 
 
 
-export function observe(value) {
-    Object.keys(value).forEach(key => {
-        defineReactive(value, key, value[key])
-    });
+export function observe(value, cb) {
+    if (value && typeof value === 'object') {
+        Object.keys(value).forEach(key => {
+            defineReactive(value, key, value[key], cb)
+        });
+    }
 }

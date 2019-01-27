@@ -11,7 +11,7 @@ console.log(today);
 // 声明一个Can的实例
 var myCanvas = new Can(context);
 
-// var c1 = myCanvas.add('circle', {
+// var c1 = window.c = myCanvas.add('circle', {
 //     data: {
 //         x: 20,
 //         y: 20
@@ -64,13 +64,12 @@ var myCanvas = new Can(context);
 var Maxy = Can.define('maxy', {
     template: `
         <group c-if="isShow"">
-            <circle x="40" y="40" r="20" :fs="cfs"/>
-            <rect x="80" y="80" width="30" height="40"/>
+            <circle :x="item.x" :y="item.y" :r="item.r" :fs="item.fs" c-for="item in list"/>
+            <!--<rect x="80" y="80" width="30" height="40"/>-->
         </group>
     `,
     data() {
         return {
-            // fs: 'red',
             isShow: true,
         };
     }
@@ -79,24 +78,15 @@ var Maxy = Can.define('maxy', {
 var m = window.m = myCanvas.add('maxy', {
     data() {
         return {
-            cfs: 'red',
-            fs: 'yellow',
-            list: [{x: 40, y: 40, r: 20}, {x: 20, y: 20, r: 40}]
+            list: [
+                {x: 100, y: 100, r: 20, fs: 'red'},
+                {x: 200, y: 200, r: 40, fs: 'blue'}
+            ]
         };
     }
 });
 
-// var m = new Maxy({
-//     data() {
-//         return {
-//             isShow: true,
-//             list: [1, 2, 3]
-//         };
-//     }
-// });
-// m.paint(context);
 
-window.m = m;
 
 // myCanvas.add('maxy', {});
 
