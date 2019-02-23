@@ -87,6 +87,22 @@ function _proxy(data) {
 const proto = Geometry.prototype;
 const CONST_FOR_SIZE = 20;
 
+// 上下文的默认属性
+const ctxDefaults = {
+    fs: 'transparent',
+    ss: 'black',
+    lineWidth: 1,
+    lineCap: 'butt', // round square
+    lineJoin: 'miter', //round bevel
+    alpha: 1,
+    textAlign: 'start', // left right center start end
+    textBaseline: 'alphabetic', // top hanging middle alphabetic ideographic bottom,
+    shadowBlur: 0,
+    shadowColor: 'rgba(0, 0, 0, 0)',
+    shadowX: 0,
+    shadowY: 0
+};
+
 _.extend(proto, Events, {
     defaults: {
         x: 0,
@@ -94,10 +110,9 @@ _.extend(proto, Events, {
         r: CONST_FOR_SIZE,
         width: CONST_FOR_SIZE,
         height: CONST_FOR_SIZE,
-        fs: 'transparent',
-        ss: 'black',
+        fontSize: 10,
         font: 'sans-serif',
-        fontSize: 15
+        ...ctxDefaults
     }
 });
 
@@ -124,8 +139,18 @@ proto.preDraw = function (ctx) {
     // ctx.save();
     ctx.fillStyle = this.fs;
     ctx.strokeStyle = this.ss;
+    ctx.globalAlpha = this.alpha;
 
-    console.log(this, this.ss);
+    ctx.lineWidth = this.lineWidth;
+    ctx.lineCap = this.lineCap;
+    ctx.lineJoin = this.lineJoin;
+
+    ctx.shadowBlur = this.shadowBlur;
+    ctx.shadowColor = this.shadowColor;
+    ctx.shadowOffsetX = this.shadowX;
+    ctx.shadowOffsetY = this.shadowY;
+
+    console.log(this);
     // ctx.beginPath();
 }
 

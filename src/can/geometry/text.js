@@ -25,6 +25,14 @@ class Text extends Geometry{
     constructor(options, parent) {
         super(options, parent);
     }
+
+    preDraw(ctx) {
+        super.preDraw(ctx);
+
+        ctx.font = `${this.fontSize}px ${this.font}`;
+        ctx.textAlign = this.textAlign;
+        ctx.textBaseline = this.textBaseline;
+    }
 }
 
 // 继承原型链
@@ -37,11 +45,16 @@ proto.draw = function (ctx) {
     ctx.fillText(this.value, this.x, this.y);
 };
 
-proto.preDraw = function (ctx) {
-    ctx.font = `${this.fontSize}px ${this.font}`;
-    ctx.fillStyle = this.fs;
-    ctx.strokeStyle = this.ss;
-};
+// proto.preDraw = function (ctx) {
+//     // super.preDraw(ctx);
+//     // ctx.font = `${this.fontSize}px ${this.font}`;
+//
+//     // ctx.fillStyle = this.fs;
+//     // ctx.strokeStyle = this.ss;
+//     //
+//     // ctx.textAlign = this.textAlign;
+//     // ctx.textBaseline = this.textBaseline;
+// };
 
 proto.postDraw = function (ctx) {
     return ;

@@ -15,6 +15,7 @@ const proto = Group.prototype;
 
 _.extend(proto, Events);
 
+var time = 0;
 /**
  * 将队列中的图形全部绘制
  */
@@ -23,7 +24,7 @@ proto.paint = function () {
     const geometries = this.geometries;
 
     this.clear();
-
+    console.log('绘制次数', ++time);
     geometries.forEach(geom => {
         geom.paint(ctx);
     });
@@ -79,11 +80,21 @@ proto.add = function (type, opts) {
     // 监听
     this.listenTo(geom, 'repaint', this.paint);
 
-    //重绘
+    //添加之后立即重绘
     this.paint();
 
     return geom;
 };
+
+// var timeId = null;
+//
+// proto.batchPaint = function() {
+//     if (!timeId) {
+//         timeId = setTimeout(() => {
+//             this.paint();
+//         }, 0);
+//     }
+// };
 
 /**
  *  删除一个图形
