@@ -5,6 +5,7 @@ import Img from './img';
 import Text from './text';
 import Geometry from './geom';
 import Path from './path';
+import Curve from "./curve";
 import {GEOM_MAP} from "../global";
 
 GEOM_MAP.set('circle', Circle);
@@ -13,5 +14,6 @@ GEOM_MAP.set('poly', Poly);
 GEOM_MAP.set('img', Img);
 GEOM_MAP.set('text', Text);
 GEOM_MAP.set('path', Path);
+GEOM_MAP.set('curve', Curve);
 
-export { Circle, Rect, Poly, Img, Text, Geometry, Path};
+export { Circle, Rect, Poly, Img, Text, Geometry, Path, Curve};
