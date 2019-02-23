@@ -2,7 +2,7 @@ const _ = require('underscore');
 const Events = require('./events');
 import {Circle, Geometry} from './geometry/index';
 import Group from './geometry/group';
-import { parseHTML, generate } from "./compiler";
+import {parseHTML, generate} from "./compiler";
 
 // 命名空间
 function Can(context) {
@@ -63,8 +63,9 @@ Can.extend = function (options) {
     var baseOpt = options || {};
 
     // 定义一个类
-    var Component = class extends Geometry{
+    var Component = class extends Geometry {
         constructor(options) {
+            options = options || {};
 
             var baseData = typeof baseOpt.data === 'function' ? baseOpt.data() : {};
             var data = typeof options.data === 'function' ? options.data() : {};
@@ -75,10 +76,37 @@ Can.extend = function (options) {
         }
     }
 
+    // var proto = Component.prototype;
+    //
+    // var tempalte = baseOpt.template;
+    // if(!tempalte) {
+    //     throw new Error('无效的template，无法创建自定义组件');
+    // }
+    // var ast = parseHTML(tempalte);
+    // var render = generate(ast);
+    //
+    // console.dir(ast);
+    // console.log(render);
+    //
+    // // 重写Sub的paint方法
+    // proto.paint = new Function('ctx', render);
+
+    return Component;
+};
+
+/**
+ * 定义一个组件
+ *
+ */
+Can.component = function (name, options) {
+    var Component = this.extend(options);
     var proto = Component.prototype;
 
-    var tempalte = baseOpt.template;
-    if(!tempalte) {
+    options = options || {};
+
+    var tempalte = options.template;
+
+    if (!tempalte) {
         throw new Error('无效的template，无法创建自定义组件');
     }
     var ast = parseHTML(tempalte);
@@ -90,20 +118,28 @@ Can.extend = function (options) {
     // 重写Sub的paint方法
     proto.paint = new Function('ctx', render);
 
+    GEOM_MAP.set(name, Component);
+
     return Component;
 };
 
 /**
- * 定义一个组件
- *
+ * 定义一个基础图形
  */
-Can.define = function (name, options) {
-      var Sub = this.extend(options);
+Can.basic = function (name, options) {
+    var Basic = Can.extend(options);
+    var proto = Basic.prototype;
 
-      GEOM_MAP.set(name, Sub);
+    options = options || {};
 
-      return Sub;
-};
+    if (options.draw) {
+        proto.draw = options.draw;
+    }
+
+    GEOM_MAP.set(name, Basic);
+
+    return Basic;
+}
 
 // Can.components = new Map();
 
