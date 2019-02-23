@@ -112,6 +112,8 @@ _.extend(proto, Events, {
         height: CONST_FOR_SIZE,
         fontSize: 10,
         font: 'sans-serif',
+        closed: false,
+        points: [],
         ...ctxDefaults
     }
 });
