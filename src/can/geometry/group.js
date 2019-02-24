@@ -1,6 +1,6 @@
 const _ = require('underscore');
 const Events = require('../events');
-import { Circle, Rect, Img, Text, Poly} from './index';
+import {Circle, Rect, Img, Text, Poly, Geometry} from './index';
 
 // 命名空间
 function Group(context) {
@@ -44,37 +44,29 @@ proto.clear = function () {
  * 添加一个图形
  */
 proto.add = function (type, opts) {
-    // todo 先添加圆形
     var Factory = null;
+    var geom = null;
 
-    if (GEOM_MAP.has(type)) {
+    if (Array.isArray(type)) {
+        // 图形对象数组
+        type.forEach(geom => {
+            this.add(geom);
+        });
+        return type;
+    }
+    else if (type instanceof Geometry) {
+        // 如果是图形对象
+        geom = type;
+    }
+    else if (typeof type === 'string' && GEOM_MAP.has(type)) {
         Factory = GEOM_MAP.get(type);
+        geom = new Factory(opts);
     }
     else {
         throw new TypeError('目前并没有该绘制种类：' + type);
     }
 
-    // switch (type) {
-    //     case 'circle':
-    //         Factory = Circle;
-    //         break;
-    //     case 'rect':
-    //         Factory = Rect;
-    //         break;
-    //     case 'poly':
-    //         Factory = Poly;
-    //         break;
-    //     case 'text':
-    //         Factory = Text;
-    //         break;
-    //     case 'image':
-    //         Factory = Img;
-    //         break;
-    //     default:
-    //         throw new TypeError('目前并没有该绘制种类：' + type);
-    // }
-
-    const geom = new Factory(opts);
+    // const geom = new Factory(opts);
     this.geometries.push(geom);
 
     // 监听
@@ -111,6 +103,7 @@ proto.remove = function (geometry) {
     });
 
     if (index > -1) {
+        geometry.off('repaint');
         this.geometries.splice(index, 1);
     }
 
@@ -118,6 +111,21 @@ proto.remove = function (geometry) {
     this.paint();
 
     return geometry;
+}
+
+/**
+ * 删除全部图形
+ */
+proto.destory = function () {
+    var copy = this.geometries.slice();
+
+    this.geometries.forEach(geom => {
+        geom.off('repaint');
+    });
+    this.geometries = [];
+    this.clear();
+
+    return copy;
 }
 
 export default Group;

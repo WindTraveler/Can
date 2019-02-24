@@ -55,6 +55,13 @@ proto.remove = function (geometry) {
 };
 
 /**
+ * 从根节点移除全部图形
+ */
+proto.destory = function () {
+    return this.root.destory();
+}
+
+/**
  * 拓展一个图形类
  *
  * @param options
