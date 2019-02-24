@@ -78,7 +78,10 @@ proto.add = function (type, opts) {
     this.geometries.push(geom);
 
     // 监听
-    this.listenTo(geom, 'repaint', this.paint);
+    // 未优化
+    // this.listenTo(geom, 'repaint', this.paint);
+    // 优化
+    this.listenTo(geom, 'repaint', this.batchPaint);
 
     //添加之后立即重绘
     this.paint();
@@ -86,15 +89,16 @@ proto.add = function (type, opts) {
     return geom;
 };
 
-// var timeId = null;
-//
-// proto.batchPaint = function() {
-//     if (!timeId) {
-//         timeId = setTimeout(() => {
-//             this.paint();
-//         }, 0);
-//     }
-// };
+var timeId = null;
+
+proto.batchPaint = function() {
+    if (!timeId) {
+        timeId = setTimeout(() => {
+            this.paint();
+            timeId = null;
+        }, 0);
+    }
+};
 
 /**
  *  删除一个图形
