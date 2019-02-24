@@ -30,5 +30,10 @@ proto.draw = function (ctx) {
     ctx.arc(+this.x, +this.y, +this.r, 0, 2 * Math.PI);
 };
 
+proto.translate = function (x, y) {
+    this.x += x;
+    this.y += y;
+}
+
 // module.exports = Circle;
 export default Circle;
