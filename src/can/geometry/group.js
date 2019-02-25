@@ -76,7 +76,8 @@ proto.add = function (type, opts) {
     this.listenTo(geom, 'repaint', this.batchPaint);
 
     //添加之后立即重绘
-    this.paint();
+    // this.paint();
+    this.batchPaint();
 
     return geom;
 };
@@ -84,7 +85,7 @@ proto.add = function (type, opts) {
 var timeId = null;
 
 proto.batchPaint = function() {
-    if (!timeId) {
+    if (timeId === null) {
         timeId = setTimeout(() => {
             this.paint();
             timeId = null;
@@ -108,7 +109,7 @@ proto.remove = function (geometry) {
     }
 
     //重绘
-    this.paint();
+    this.batchPaint();
 
     return geometry;
 }

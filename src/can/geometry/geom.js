@@ -138,7 +138,6 @@ proto.draw = function (ctx) {
 };
 
 proto.preDraw = function (ctx) {
-    // ctx.save();
     ctx.fillStyle = this.fs;
     ctx.strokeStyle = this.ss;
     ctx.globalAlpha = this.alpha;
@@ -152,14 +151,13 @@ proto.preDraw = function (ctx) {
     ctx.shadowOffsetX = this.shadowX;
     ctx.shadowOffsetY = this.shadowY;
 
-    console.log(this);
-    // ctx.beginPath();
+    // 【重要】这句代码严重的影响页面渲染性能
+    // console.log(this);
 }
 
 proto.postDraw = function (ctx) {
     ctx.fill();
     ctx.stroke();
-    // ctx.restore();
 }
 
 /**
