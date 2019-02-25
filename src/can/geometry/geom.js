@@ -90,7 +90,7 @@ const CONST_FOR_SIZE = 20;
 // 上下文的默认属性
 const ctxDefaults = {
     fs: 'transparent',
-    ss: 'black',
+    ss: 'transparent',
     lineWidth: 1,
     lineCap: 'butt', // round square
     lineJoin: 'miter', //round bevel
@@ -101,6 +101,20 @@ const ctxDefaults = {
     shadowColor: 'rgba(0, 0, 0, 0)',
     shadowX: 0,
     shadowY: 0
+};
+
+// 上下文状态和属性简写之间的映射
+const nameMap = {
+    fillStyle: 'fs',
+    strokeStyle: 'ss',
+    globalAlpha: 'alpha',
+    lineWidth: 'lineWidth',
+    lineCap: 'lineCap',
+    lineJoin: 'lineJoin',
+    shadowBlur: 'shadowBlur',
+    shadowColor: 'shadowColor',
+    shadowOffsetX: 'shadowX',
+    shadowOffsetY: 'shadowY'
 };
 
 _.extend(proto, Events, {
@@ -119,7 +133,7 @@ _.extend(proto, Events, {
 });
 
 proto.paint = function (ctx) {
-    ctx.save();
+    // ctx.save();
     // 设置样式
     this.preDraw(ctx);
     // 开始新的路径
@@ -129,7 +143,7 @@ proto.paint = function (ctx) {
 
     // 子元素f、s之后，清空path，避免父组件的postDraw影响颜色
     ctx.beginPath();
-    ctx.restore();
+    // ctx.restore();
 };
 
 // 圆形自己的绘制方法
@@ -138,26 +152,43 @@ proto.draw = function (ctx) {
 };
 
 proto.preDraw = function (ctx) {
+    // Object.keys(nameMap).forEach(key => {
+    //     if (ctx[key] !== this[nameMap[key]]) {
+    //         ctx[key] = this[nameMap[key]];
+    //     }
+    // });
+
+    // for (var key in nameMap) {
+    //     if (ctx[key] !== this[nameMap[key]]) {
+    //         ctx[key] = this[nameMap[key]];
+    //     }
+    // }
+
     ctx.fillStyle = this.fs;
     ctx.strokeStyle = this.ss;
-    ctx.globalAlpha = this.alpha;
+    // ctx.globalAlpha = this.alpha;
+    //
+    // ctx.lineWidth = this.lineWidth;
+    // ctx.lineCap = this.lineCap;
+    // ctx.lineJoin = this.lineJoin;
+    //
+    // ctx.shadowBlur = this.shadowBlur;
+    // ctx.shadowColor = this.shadowColor;
+    // ctx.shadowOffsetX = this.shadowX;
+    // ctx.shadowOffsetY = this.shadowY;
 
-    ctx.lineWidth = this.lineWidth;
-    ctx.lineCap = this.lineCap;
-    ctx.lineJoin = this.lineJoin;
-
-    ctx.shadowBlur = this.shadowBlur;
-    ctx.shadowColor = this.shadowColor;
-    ctx.shadowOffsetX = this.shadowX;
-    ctx.shadowOffsetY = this.shadowY;
-
-    // 【重要】这句代码严重的影响页面渲染性能
+    // 【重要】【重要】【重要】
+    // 这句代码严重的影响页面渲染性能
     // console.log(this);
 }
 
 proto.postDraw = function (ctx) {
-    ctx.fill();
-    ctx.stroke();
+    if (this.fs !== 'transparent') {
+        ctx.fill();
+    }
+    if (this.ss !== 'transparent') {
+        ctx.stroke();
+    }
 }
 
 /**

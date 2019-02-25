@@ -24,7 +24,7 @@ proto.paint = function () {
     const geometries = this.geometries;
 
     this.clear();
-    console.log('绘制次数', ++time);
+    // console.log('绘制次数', ++time);
     geometries.forEach(geom => {
         geom.paint(ctx);
     });
