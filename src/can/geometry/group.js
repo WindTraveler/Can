@@ -86,10 +86,14 @@ var timeId = null;
 
 proto.batchPaint = function() {
     if (timeId === null) {
-        timeId = setTimeout(() => {
+        // timeId = setTimeout(() => {
+        //     this.paint();
+        //     timeId = null;
+        // }, 0);
+        timeId = requestAnimationFrame(() => {
             this.paint();
             timeId = null;
-        }, 0);
+        });
     }
 };
 
