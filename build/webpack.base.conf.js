@@ -12,6 +12,9 @@ module.exports = {
     devtool: 'eval-source-map',
     entry: {
         index: './src/index.js'
+        // ball: './test/balls.js',
+        // canBall: './test/balls-can.js'，
+        // functions: './test/functions.js'
     },
     output: {
         path: config.build.dist,

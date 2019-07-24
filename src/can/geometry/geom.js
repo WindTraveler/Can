@@ -166,16 +166,16 @@ proto.preDraw = function (ctx) {
 
     ctx.fillStyle = this.fs;
     ctx.strokeStyle = this.ss;
-    // ctx.globalAlpha = this.alpha;
-    //
-    // ctx.lineWidth = this.lineWidth;
-    // ctx.lineCap = this.lineCap;
-    // ctx.lineJoin = this.lineJoin;
-    //
-    // ctx.shadowBlur = this.shadowBlur;
-    // ctx.shadowColor = this.shadowColor;
-    // ctx.shadowOffsetX = this.shadowX;
-    // ctx.shadowOffsetY = this.shadowY;
+    ctx.globalAlpha = this.alpha;
+    
+    ctx.lineWidth = this.lineWidth;
+    ctx.lineCap = this.lineCap;
+    ctx.lineJoin = this.lineJoin;
+    
+    ctx.shadowBlur = this.shadowBlur;
+    ctx.shadowColor = this.shadowColor;
+    ctx.shadowOffsetX = this.shadowX;
+    ctx.shadowOffsetY = this.shadowY;
 
     // 【重要】【重要】【重要】
     // 这句代码严重的影响页面渲染性能

@@ -63,7 +63,8 @@ proto.add = function (type, opts) {
         geom = new Factory(opts);
     }
     else {
-        throw new TypeError('目前并没有该绘制种类：' + type);
+        throw new TypeError(type + '是未被定义的图形类型');
+        // console.error(type + '是未被定义的图形类型');
     }
 
     // const geom = new Factory(opts);

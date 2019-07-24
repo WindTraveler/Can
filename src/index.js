@@ -11,13 +11,57 @@ console.log(today);
 // 声明一个Can的实例
 var myCanvas = new Can(context);
 
-// var c1 = window.c = myCanvas.add('circle', {
-//     data: {
-//         x: 20,
-//         y: 20
-//     }
-// });
-//
+var c1 = window.c = myCanvas.add('circle', {
+    data: {
+        x: 20,
+        y: 20,
+        ss: 'black'
+    }
+});
+
+var c2 = window.c2 = myCanvas.add('circle', {
+    data: {
+        x: 20,
+        y: 40,
+        ss: 'black'
+    }
+});
+
+Can.component('cc', {
+    template: `
+        <group>
+            <circle :x="x"/>
+        </group>
+    `,
+    data() {
+        return {
+            x: 20,
+            y: 20
+        };
+    }
+});
+
+var cc = window.cc = myCanvas.add('cc');
+
+var r = window.r = myCanvas.add('rect', {
+    data: {
+        x: 10,
+        y: 10,
+        width: 50,
+        height: 100,
+        ss: 'black'
+    }
+});
+
+window.path = myCanvas.add('path', {
+    data() {
+        return {
+            points: [10, 10, 20, 20]
+        }
+    }
+});
+
+// 矩形
 // var data = window.data = {
 //     x: 20,
 //     y: 50,
@@ -26,42 +70,40 @@ var myCanvas = new Can(context);
 //     data
 // });
 
-// var p1 = myCanvas.add('poly', {
-//     data: {
-//         x: 100,
-//         y: 100,
-//         r: 30,
-//         sides: 3
-//     }
-// });
-//
-// var t1 = myCanvas.add('text', {
-//     data: {
-//         x: 100,
-//         y: 100,
-//         value: 'Love Jenny'
-//     }
-// });
-//
-// var img1 = myCanvas.add('image', {
-//     data: {
-//         src: 'luffy.jpg',
-//         x: 100,
-//         y: 100,
-//         width: 100,
-//         height: 100
-//     }
-// });
+var p1 = myCanvas.add('poly', {
+    data: {
+        x: 100,
+        y: 100,
+        r: 30,
+        sides: 3,
+        ss: 'black'
+    }
+});
 
-// myCanvas.paint();
 
-// 组件demo
-// <group c-if="isShow">
-//     <circle :x="item.x" :y="item.y" :r="item.r" c-for="item in list"/>
-//     <rect x="80" y="80" width="30" height="40"/>
-// </group>
+// 文字loveJenny
+var t = window.t = myCanvas.add('text', {
+    data: {
+        x: 200,
+        y: 130,
+        value: 'Love Jenny',
+        fontSize: 14,
+        ss: 'black'
+    }
+});
 
-var Maxy = Can.define('maxy', {
+// 图片
+var img1 = myCanvas.add('img', {
+    data: {
+        src: 'luffy.jpg',
+        x: 100,
+        y: 100,
+        width: 100,
+        height: 100
+    }
+});
+
+var Maxy = Can.component('maxy', {
     template: `
         <group c-if="isShow"">
             <circle :x="item.x" :y="item.y" :r="item.r" :fs="item.fs" c-for="item in list"/>
@@ -75,54 +117,47 @@ var Maxy = Can.define('maxy', {
     }
 });
 
-var m = window.m = myCanvas.add('maxy', {
-    data() {
-        return {
-            list: [
-                {x: 100, y: 100, r: 20, fs: 'red'},
-                {x: 200, y: 200, r: 40, fs: 'blue'}
-            ]
-        };
-    }
-});
+// var m = window.m = myCanvas.add('maxy', {
+//     data() {
+//         return {
+//             list: [
+//                 {x: 100, y: 100, r: 20, fs: 'red'},
+//                 {x: 200, y: 200, r: 40, fs: 'blue'}
+//             ]
+//         };
+//     }
+// });
+//
+// Can.basic('ellipse', {
+//     data() {
+//         return {
+//             x: 100,
+//         };
+//     },
+//     draw(ctx) {
+//         // ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
+//         ctx.ellipse(this.x, 40, 20, 10, 0, 0, Math.PI * 2, false);
+//     }
+// });
+
+// window.e  = myCanvas.add('ellipse', {
+//     data() {
+//         return {
+//             x: 300
+//         };
+//     }
+// });
 
 
+// window.curve = myCanvas.add('curve', {
+//     data() {
+//         return {
+//             points: [50, 50, 70, 200, 20, 10, 100, 50]
+//         }
+//     }
+// })
 
-// myCanvas.add('maxy', {});
-
-
-// 运动动画测试
-// c1.velocityX = 5;
-// c1.velocityY = 5;
-
-function drawBalls() {
-    moveBall(c1);
-    requestAnimationFrame(drawBalls);
-}
-
-function moveBall(ball) {
-    if (ball.x + ball.velocityX + ball.r > canvas.width ||
-        ball.x + ball.velocityX - ball.r < 0) {
-        ball.velocityX = -ball.velocityX;
-    }
-
-    if (ball.y + ball.velocityY + ball.r > canvas.height ||
-        ball.y + ball.velocityY - ball.r < 0) {
-        ball.velocityY = -ball.velocityY;
-    }
-
-    ball.x += ball.velocityX;
-    ball.y += ball.velocityY;
-}
-
-// requestAnimationFrame(drawBalls);
-
-// 方便调试
 window.myCanvas = myCanvas;
-// window.c = c1;
-// window.r = r1;
-// window.p = p1;
-// window.t = t1;
-// window.img = img1;
+window.ctx = context;
 
 
